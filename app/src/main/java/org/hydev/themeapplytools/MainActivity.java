@@ -1,6 +1,7 @@
 package org.hydev.themeapplytools;
 
 import android.app.Activity;
+import android.content.ComponentName;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
@@ -72,6 +73,13 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Button openFileManagerButton = findViewById(R.id.bt_openFileManager);
+        openFileManagerButton.setOnClickListener(v -> {
+            Intent intent = new Intent("android.intent.action.MAIN");
+            intent.setComponent(new ComponentName("com.android.fileexplorer", "com.android.fileexplorer.activity.FileActivity"));
+            startActivity(intent);
+        });
 
         Button chooseFileButton = findViewById(R.id.bt_chooseFile);
         chooseFileButton.setOnClickListener(v -> ThemeUtils.chooseFile(this));

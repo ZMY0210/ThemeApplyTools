@@ -11,6 +11,12 @@
         android:text="@string/usage" />
 
     <com.google.android.material.button.MaterialButton
+        android:id="@+id/bt_openFileManager"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/open_fileManager" />
+
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/bt_chooseFile"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

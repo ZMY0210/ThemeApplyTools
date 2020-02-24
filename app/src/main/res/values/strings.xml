@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">ThemeApplyTools</string>
     <string name="usage">使用说明： \n <b>1. 打开文件管理器，复制主题文件至 SD 卡根目录.</b> \n 2. 选择你复制的主题. \n 3. 点击 “应用主题” 按钮. \n（后续更新/问题处理）请关注酷安 @Yaong，谢谢</string>
+    <string name="open_fileManager">1. 打开文件管理器</string>
     <string name="choose_file">2. 选择文件</string>
     <string name="apply_theme">3. 应用主题</string>
     <string name="not_mtz_file">你选择的不是主题（mtz）文件</string>
