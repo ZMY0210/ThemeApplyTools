@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">ThemeApplyTools</string>
+    <string name="usage">使用说明： \n <b>1. 打开文件管理器，复制主题文件至 SD 卡根目录.</b> \n 2. 选择你复制的主题. \n 3. 点击 “应用主题” 按钮. \n（后续更新/问题处理）请关注酷安 @Yaong，谢谢</string>
+    <string name="choose_file">2. 选择文件</string>
+    <string name="apply_theme">3. 应用主题</string>
+    <string name="not_mtz_file">你选择的不是主题（mtz）文件</string>
+    <string name="ensure_mtz">请确保该文件在根目录下，否则无效</string>
+    <string name="no_Choose_File">未选择有效文件，请先选择文件</string>
+    <string name="adv_usage">另外，你也可以在下方手动指定主题文件位置.</string>
+    <string name="theme_path">高级选项：手动输入主题文件路径</string>
+    <string name="input_isEmpty">路径为空或不是主题（mtz）文件</string>
+    <string name="adv_Apply">高级选项：应用</string>
+</resources>
