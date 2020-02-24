@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
                     .setMessage("主题已应用，\n" +
                             "若没有效果，可能是该主题不在根目录下，\n" +
                             "请仔细阅读说明.")
-                    .setPositiveButton("好的", null)
+                    .setPositiveButton("OK", null)
                     .show();
 
             applied = false;
@@ -130,7 +130,7 @@ public class MainActivity extends AppCompatActivity {
                                 "\"theme_file_path\" -> 对应主题路径 \n" +
                                 "\"api_called_from\" -> \"test\" \n" +
                                 "之后发送请求即可")
-                        .setPositiveButton("返回", null)
+                        .setPositiveButton("OK", null)
                         .show()
         );
 
