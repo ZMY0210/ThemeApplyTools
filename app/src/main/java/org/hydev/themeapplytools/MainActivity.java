@@ -17,8 +17,8 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
 
 public class MainActivity extends AppCompatActivity {
-    static boolean applied = false;
     private static final int snackBarLocation = R.id.sb_location;
+    static boolean applied = false;
     private static String filePath;
 
     @Override
