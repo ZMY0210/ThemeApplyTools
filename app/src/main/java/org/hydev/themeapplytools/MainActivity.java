@@ -18,6 +18,9 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
 
 public class MainActivity extends AppCompatActivity {
+    private static final String GITHUB_URL = "https://github.com/VergeDX/ThemeApplyTools";
+    private static final String ME_COOLAPK_URL = "https://coolapk.com/u/506843";
+
     private static final int snackBarLocation = R.id.sb_location;
     static boolean applied = false;
     private static String filePath;
@@ -110,6 +113,31 @@ public class MainActivity extends AppCompatActivity {
             } else {
                 ThemeUtils.applyTheme(this, input);
             }
+        });
+
+        Button githubButton = findViewById(R.id.bt_github);
+        githubButton.setOnClickListener(v -> {
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(GITHUB_URL));
+            startActivity(intent);
+        });
+
+        Button howItWorkButton = findViewById(R.id.bt_howItWork);
+        howItWorkButton.setOnClickListener(v ->
+                new MaterialAlertDialogBuilder(this)
+                        .setTitle("原理")
+                        .setMessage("向 MIUI 主题商店发送 Intent 请求 \n" +
+                                "在请求中指定特定的参数 \n" +
+                                "\"theme_file_path\" -> 对应主题路径 \n" +
+                                "\"api_called_from\" -> \"test\" \n" +
+                                "之后发送请求即可")
+                        .setPositiveButton("返回", null)
+                        .show()
+        );
+
+        Button meCoolapkButton = findViewById(R.id.bt_meCoolapk);
+        meCoolapkButton.setOnClickListener(v -> {
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(ME_COOLAPK_URL));
+            startActivity(intent);
         });
     }
 }

@@ -11,4 +11,7 @@
     <string name="theme_path">高级选项：手动输入主题文件路径</string>
     <string name="input_isEmpty">路径为空或不是主题（mtz）文件</string>
     <string name="adv_Apply">高级选项：应用</string>
+    <string name="github_openSource">GitHub 开源</string>
+    <string name="app_howWorking">App 原理</string>
+    <string name="coolapk_me">酷安 @Yaong</string>
 </resources>
