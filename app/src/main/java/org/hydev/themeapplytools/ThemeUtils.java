@@ -23,13 +23,6 @@ import okhttp3.ResponseBody;
 class ThemeUtils {
     private static final String THEME_API_URL = "https://thm.market.xiaomi.com/thm/download/v2/";
 
-    static void chooseFile(Activity activity) {
-        Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
-        intent.addCategory(Intent.CATEGORY_OPENABLE);
-        intent.setType("*/*");
-        activity.startActivityForResult(intent, 7);
-    }
-
     static void applyTheme(Activity activity, String filePath) {
         Intent intent = new Intent("android.intent.action.MAIN");
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

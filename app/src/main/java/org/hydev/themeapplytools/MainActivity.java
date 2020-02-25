@@ -93,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         Button chooseFileButton = findViewById(R.id.bt_chooseFile);
-        chooseFileButton.setOnClickListener(v -> ThemeUtils.chooseFile(this));
+        chooseFileButton.setOnClickListener(v -> FileUtils.chooseFile(this));
 
         Button applyThemeButton = findViewById(R.id.bt_applyTheme);
         applyThemeButton.setOnClickListener(v -> {
