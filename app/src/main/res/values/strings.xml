@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">ThemeApplyTools</string>
+    <string name="app_name">MIUI 主题工具</string>
     <string name="usage">使用说明：\n<b>1. 打开文件管理器，复制主题文件至 SD 卡根目录.\n\t（SD 卡根目录即为 “内部储存设备”）</b>\n2. 选择你复制的主题.\n3. 点击 “应用主题” 按钮.</string>
     <string name="open_fileManager">1. 打开文件管理器</string>
     <string name="choose_file">2. 选择文件</string>
