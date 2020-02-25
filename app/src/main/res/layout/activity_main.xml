@@ -64,6 +64,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginVertical="7dp"
+            android:imeOptions="actionDone"
             android:singleLine="true" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -104,15 +105,4 @@
             android:text="@string/coolapk_me"
             android:textAllCaps="false" />
     </LinearLayout>
-
-    <com.google.android.material.textview.MaterialTextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="\n\n\n" />
-
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/sb_location"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
 </LinearLayout>

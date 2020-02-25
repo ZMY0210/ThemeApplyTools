@@ -22,7 +22,6 @@ public class MainActivity extends AppCompatActivity {
     private static final String ME_COOLAPK_URL = "https://coolapk.com/u/506843";
     private static final String ICEBOX_COOLAPK_URL = "https://coolapk.com/apk/com.catchingnow.icebox";
 
-    private static final int snackBarLocation = R.id.sb_location;
     static boolean applied = false;
     private static String filePath;
 
@@ -55,12 +54,10 @@ public class MainActivity extends AppCompatActivity {
                 String fileName = cursor.getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME));
                 if (!fileName.endsWith(".mtz")) {
                     Snackbar.make(findViewById(R.id.bt_chooseFile).getRootView(), R.string.not_mtz_file, Snackbar.LENGTH_LONG)
-                            .setAnchorView(snackBarLocation)
                             .show();
                     fileName = null;
                 } else {
                     Snackbar.make(findViewById(R.id.bt_chooseFile).getRootView(), R.string.ensure_mtz, Snackbar.LENGTH_LONG)
-                            .setAnchorView(snackBarLocation)
                             .show();
                 }
 
@@ -92,7 +89,6 @@ public class MainActivity extends AppCompatActivity {
         applyThemeButton.setOnClickListener(v -> {
             if (filePath == null) {
                 Snackbar.make(v, R.string.no_Choose_File, Snackbar.LENGTH_LONG)
-                        .setAnchorView(snackBarLocation)
                         .show();
             } else {
                 ThemeUtils.applyTheme(this, filePath);
@@ -115,7 +111,6 @@ public class MainActivity extends AppCompatActivity {
 
             if (input.equals("") || !input.endsWith(".mtz")) {
                 Snackbar.make(v, R.string.input_isEmpty, Snackbar.LENGTH_LONG)
-                        .setAnchorView(snackBarLocation)
                         .show();
             } else {
                 ThemeUtils.applyTheme(this, input);
