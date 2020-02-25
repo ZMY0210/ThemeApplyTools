@@ -17,6 +17,16 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
 
+import org.jetbrains.annotations.NotNull;
+
+import java.io.IOException;
+import java.util.Map;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Response;
+import okhttp3.ResponseBody;
+
 public class MainActivity extends AppCompatActivity {
     private static final String GITHUB_URL = "https://github.com/VergeDX/ThemeApplyTools";
     private static final String ME_COOLAPK_URL = "https://coolapk.com/u/506843";
@@ -93,6 +103,55 @@ public class MainActivity extends AppCompatActivity {
             } else {
                 ThemeUtils.applyTheme(this, filePath);
                 filePath = null;
+            }
+        });
+
+        TextInputLayout themeShareLinkTextInputLayout = findViewById(R.id.til_themeShareLink);
+
+        Button getThemeDownloadLinkButton = findViewById(R.id.bt_getThemeDownloadLink);
+        getThemeDownloadLinkButton.setOnClickListener(v -> {
+            String inputShareLink = themeShareLinkTextInputLayout.getEditText().getText().toString();
+            if (!inputShareLink.isEmpty()) {
+                ThemeUtils.getThemeDownloadLinkAsync(this, inputShareLink, new Callback() {
+                    @Override
+                    public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                        runOnUiThread(() -> new MaterialAlertDialogBuilder(MainActivity.this)
+                                .setTitle("错误")
+                                .setMessage("获取直链失败，\n" +
+                                        "请检查网络连接后重试.")
+                                .setNegativeButton("OK", null)
+                                .show());
+                    }
+
+                    @Override
+                    public void onResponse(@NotNull Call call, @NotNull Response response) {
+                        ResponseBody body = response.body();
+                        Map<String, String> themeInfo = ThemeUtils.getThemeInfo(body);
+
+                        if (themeInfo == null) {
+                            runOnUiThread(() -> new MaterialAlertDialogBuilder(MainActivity.this)
+                                    .setTitle("失败")
+                                    .setMessage("获取主题信息失败，\n" +
+                                            "可能是链接输入错误.")
+                                    .setNegativeButton("OK", null)
+                                    .show());
+                        } else {
+                            runOnUiThread(() -> {
+                                        String downloadUrl = themeInfo.get("downloadUrl");
+
+                                        new MaterialAlertDialogBuilder(MainActivity.this)
+                                                .setTitle("成功")
+                                                .setMessage("文件大小：" + themeInfo.get("fileSize") + "\n\n" +
+                                                        "下载链接：\n" + downloadUrl + "\n\n" +
+                                                        "哈希值：\n" + themeInfo.get("fileHash"))
+                                                .setNegativeButton("复制链接", (dialog, which) -> FileUtils.copyLink(MainActivity.this, downloadUrl))
+                                                .setPositiveButton("直接下载", (dialog, which) -> FileUtils.systemDownload(MainActivity.this, downloadUrl))
+                                                .show();
+                                    }
+                            );
+                        }
+                    }
+                });
             }
         });
 

@@ -7,6 +7,9 @@
     <string name="not_mtz_file">你选择的不是主题（mtz）文件</string>
     <string name="ensure_mtz">请确保该文件在根目录下，否则无效</string>
     <string name="no_Choose_File">未选择有效文件，请先选择文件</string>
+    <string name="getThemeDownloadLink">主题下载直链获取</string>
+    <string name="themeShareLink">MIUI 主题分享链接</string>
+    <string name="bt_getThemeDownloadLink">获取信息 / 下载文件</string>
     <string name="ifDefault">若出现主题恢复默认的情况，\n可先卸载 “主题商店” 的更新，\n再先按上方的步骤重新应用主题，\n并使用 “冰箱” 一类的 app 冻结 “主题商店”</string>
     <string name="iceboxCoolapk">酷安 “冰箱” app</string>
     <string name="adv_usage">你也可以在下方手动输入主题文件的位置.（手动应用）</string>
