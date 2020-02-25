@@ -102,12 +102,12 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
-        TextInputLayout textInputLayout = findViewById(R.id.til_path);
-        textInputLayout.getEditText().setText("/sdcard/test.mtz");
+        TextInputLayout themeFilePathTextInputLayout = findViewById(R.id.til_path);
+        themeFilePathTextInputLayout.getEditText().setText("/sdcard/test.mtz");
 
         Button advApplyThemeButton = findViewById(R.id.bt_advAppleTheme);
         advApplyThemeButton.setOnClickListener(v -> {
-            String input = textInputLayout.getEditText().getText().toString();
+            String input = themeFilePathTextInputLayout.getEditText().getText().toString();
 
             if (input.equals("") || !input.endsWith(".mtz")) {
                 Snackbar.make(v, R.string.input_isEmpty, Snackbar.LENGTH_LONG)
