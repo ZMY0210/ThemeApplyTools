@@ -96,8 +96,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        Button disableThemeNetworkButton = findViewById(R.id.bt_iceboxCoolapk);
-        disableThemeNetworkButton.setOnClickListener(v -> {
+        Button iceBoxCoolapkButton = findViewById(R.id.bt_iceboxCoolapk);
+        iceBoxCoolapkButton.setOnClickListener(v -> {
             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(ICEBOX_COOLAPK_URL));
             startActivity(intent);
         });
