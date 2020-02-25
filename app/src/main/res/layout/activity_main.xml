@@ -31,6 +31,17 @@
     <com.google.android.material.textview.MaterialTextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:text="@string/ifDefault" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/bt_iceboxCoolapk"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/iceboxCoolapk" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:text="@string/adv_usage" />
 
     <com.google.android.material.textfield.TextInputLayout

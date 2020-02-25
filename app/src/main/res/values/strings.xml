@@ -4,15 +4,21 @@
         <b>1. 打开文件管理器，复制主题文件至 SD 卡根目录.\n
             \t（SD 卡根目录即为 “内部储存设备”）</b>\n
         2. 选择你复制的主题.\n
-        3. 点击 “应用主题” 按钮.\n
-        （后续更新/问题处理）请关注酷安 @Yaong，谢谢</string>
+        3. 点击 “应用主题” 按钮.
+        </string>
     <string name="open_fileManager">1. 打开文件管理器</string>
     <string name="choose_file">2. 选择文件</string>
     <string name="apply_theme">3. 应用主题</string>
     <string name="not_mtz_file">你选择的不是主题（mtz）文件</string>
     <string name="ensure_mtz">请确保该文件在根目录下，否则无效</string>
     <string name="no_Choose_File">未选择有效文件，请先选择文件</string>
-    <string name="adv_usage">另外，你也可以在下方手动输入主题文件的位置.</string>
+    <string name="ifDefault">另外：\n
+        若出现主题恢复默认的情况，\n
+        可先卸载 “主题商店” 的更新，\n
+        再先按上方的步骤重新应用主题，\n
+    并使用 “冰箱” 一类的 app 冻结 “主题商店”</string>
+    <string name="iceboxCoolapk">酷安 “冰箱” app</string>
+    <string name="adv_usage">你也可以在下方手动输入主题文件的位置.（手动应用）</string>
     <string name="theme_path">[手动] 主题文件路径</string>
     <string name="adv_Apply">[手动] 应用</string>
     <string name="input_isEmpty">路径为空或不是主题（mtz）文件</string>

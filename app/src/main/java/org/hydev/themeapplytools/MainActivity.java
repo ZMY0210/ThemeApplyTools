@@ -20,6 +20,7 @@ import com.google.android.material.textfield.TextInputLayout;
 public class MainActivity extends AppCompatActivity {
     private static final String GITHUB_URL = "https://github.com/VergeDX/ThemeApplyTools";
     private static final String ME_COOLAPK_URL = "https://coolapk.com/u/506843";
+    private static final String ICEBOX_COOLAPK_URL = "https://coolapk.com/apk/com.catchingnow.icebox";
 
     private static final int snackBarLocation = R.id.sb_location;
     static boolean applied = false;
@@ -97,6 +98,12 @@ public class MainActivity extends AppCompatActivity {
                 ThemeUtils.applyTheme(this, filePath);
                 filePath = null;
             }
+        });
+
+        Button disableThemeNetworkButton = findViewById(R.id.bt_iceboxCoolapk);
+        disableThemeNetworkButton.setOnClickListener(v -> {
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(ICEBOX_COOLAPK_URL));
+            startActivity(intent);
         });
 
         TextInputLayout textInputLayout = findViewById(R.id.til_path);
