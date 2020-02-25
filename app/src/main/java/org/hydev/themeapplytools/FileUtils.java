@@ -7,7 +7,11 @@ import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Environment;
 import android.widget.Toast;
+
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 
 class FileUtils {
     static void copyLink(Activity activity, String link) {
@@ -21,6 +25,18 @@ class FileUtils {
     static void systemDownload(Activity activity, String url) {
         DownloadManager downloadManager = (DownloadManager) activity.getSystemService(Context.DOWNLOAD_SERVICE);
         DownloadManager.Request request = new DownloadManager.Request(Uri.parse(url));
+        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+        Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).mkdir();
+
+        try {
+            String[] urlSplit = url.split("/");
+            String fileName = URLDecoder.decode(urlSplit[urlSplit.length - 1], "UTF-8");
+            request.setDestinationInExternalPublicDir("Download", fileName);
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+            throw new AssertionError();
+        }
+
         downloadManager.enqueue(request);
 
         Toast.makeText(activity, "已开始下载", Toast.LENGTH_LONG).show();
