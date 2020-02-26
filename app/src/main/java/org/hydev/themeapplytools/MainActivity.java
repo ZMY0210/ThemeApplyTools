@@ -159,11 +159,11 @@ public class MainActivity extends AppCompatActivity {
                             // Show theme info, set copy and download button.
                             runOnUiThread(() -> new MaterialAlertDialogBuilder(MainActivity.this)
                                     .setTitle(fileName)
-                                                .setMessage("文件大小：" + themeInfo.get("fileSize") + "\n\n" +
-                                                        "下载链接：\n" + downloadUrl + "\n\n" +
-                                                        "哈希值：\n" + themeInfo.get("fileHash") + "\n")
-                                                .setNegativeButton("复制链接", (dialog, which) -> FileUtils.copyLink(MainActivity.this, downloadUrl))
-                                                .setPositiveButton("直接下载", (dialog, which) -> FileUtils.systemDownload(MainActivity.this, themeInfo))
+                                    .setMessage("文件大小：" + themeInfo.get("fileSize") + "\n\n" +
+                                            "下载链接：\n" + downloadUrl + "\n\n" +
+                                            "哈希值：\n" + themeInfo.get("fileHash") + "\n")
+                                    .setNegativeButton("复制链接", (dialog, which) -> FileUtils.copyLink(MainActivity.this, downloadUrl))
+                                    .setPositiveButton("直接下载", (dialog, which) -> FileUtils.systemDownload(MainActivity.this, themeInfo))
                                     .show());
                         }
                     }
@@ -206,13 +206,13 @@ public class MainActivity extends AppCompatActivity {
         Button howItWorkButton = findViewById(R.id.bt_howItWork);
         howItWorkButton.setOnClickListener(v -> new MaterialAlertDialogBuilder(this)
                 .setTitle("[原理] 应用主题")
-                        .setMessage("向 MIUI 主题商店发送 Intent 请求 \n" +
-                                "在请求中指定特定的参数 \n" +
-                                "\"theme_file_path\" -> 对应主题路径 \n" +
-                                "\"api_called_from\" -> \"test\" \n" +
-                                "之后发送请求即可 \n\n" +
-                                "由于是测试接口，\n" +
-                                "所以有可能会恢复默认，请见谅")
+                .setMessage("向 MIUI 主题商店发送 Intent 请求 \n" +
+                        "在请求中指定特定的参数 \n" +
+                        "\"theme_file_path\" -> 对应主题路径 \n" +
+                        "\"api_called_from\" -> \"test\" \n" +
+                        "之后发送请求即可 \n\n" +
+                        "由于是测试接口，\n" +
+                        "所以有可能会恢复默认，请见谅")
                 .setPositiveButton("OK", (dialog, which) ->
                         new MaterialAlertDialogBuilder(this)
                                 .setTitle("[原理] 获取直链")
