@@ -59,7 +59,7 @@ class ThemeUtils {
             new MaterialAlertDialogBuilder(activity)
                     .setTitle("错误")
                     .setMessage("请输入主题的分享链接，例如：\n" +
-                            "http://zhuti.xiaomi.com/detail/f02025cb-8f0e-44e0-b39a-653e46d84d42")
+                            "http://zhuti.xiaomi.com/detail/f02025cb-8f0e-44e0-b39a-653e46d84d42 \n")
                     .setNegativeButton("OK", null)
                     .show();
 

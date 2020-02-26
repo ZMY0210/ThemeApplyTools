@@ -47,9 +47,9 @@ public class MainActivity extends AppCompatActivity {
         if (applied) {
             new MaterialAlertDialogBuilder(this)
                     .setTitle("完成")
-                    .setMessage("主题已应用，\n" +
-                            "若没有效果，可能是该主题不在根目录下，\n" +
-                            "请仔细阅读说明.")
+                    .setMessage("主题已应用 \n" +
+                            "若没有效果，可能是该主题不在根目录下 \n" +
+                            "请仔细阅读说明 \n")
                     .setPositiveButton("OK", null)
                     .show();
 
@@ -108,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
                     .setCancelable(false)
                     .setMessage("你似乎不是 MIUI 系统 \n" +
                             "本 app 只在 MIUI 11 上测试过 \n" +
-                            "你确定要继续使用吗？")
+                            "你确定要继续使用吗？ \n")
                     .setNegativeButton("退出", (dialog, which) -> finish())
                     .setPositiveButton("继续", null)
                     .show();
@@ -150,8 +150,8 @@ public class MainActivity extends AppCompatActivity {
                     public void onFailure(@NotNull Call call, @NotNull IOException e) {
                         runOnUiThread(() -> new MaterialAlertDialogBuilder(MainActivity.this)
                                 .setTitle("错误")
-                                .setMessage("获取直链失败，\n" +
-                                        "请检查网络连接后重试.")
+                                .setMessage("获取直链失败 \n" +
+                                        "请检查网络连接后重试 \n")
                                 .setNegativeButton("OK", null)
                                 .show());
                     }
@@ -165,8 +165,8 @@ public class MainActivity extends AppCompatActivity {
                         if (themeInfo == null) {
                             runOnUiThread(() -> new MaterialAlertDialogBuilder(MainActivity.this)
                                     .setTitle("失败")
-                                    .setMessage("获取主题信息失败，\n" +
-                                            "可能是链接输入错误.")
+                                    .setMessage("获取主题信息失败 \n" +
+                                            "可能是链接输入错误 \n")
                                     .setNegativeButton("OK", null)
                                     .show());
                         } else {
@@ -228,18 +228,18 @@ public class MainActivity extends AppCompatActivity {
                         "\"theme_file_path\" -> 对应主题路径 \n" +
                         "\"api_called_from\" -> \"test\" \n" +
                         "之后发送请求即可 \n\n" +
-                        "由于是测试接口，\n" +
-                        "所以有可能会恢复默认，请见谅")
+                        "由于是测试接口 \n" +
+                        "所以可能会恢复默认，请见谅 \n")
                 .setPositiveButton("OK", (dialog, which) ->
                         new MaterialAlertDialogBuilder(this)
                                 .setTitle("[原理] 获取直链")
                                 .setMessage("向 MIUI api 发送 get 请求 \n" +
                                         "在其中包含主题 Token \n" +
                                         "返回的 Json 中有下载链接 \n\n" +
-                                        "例如：\n" +
+                                        "例如： \n" +
                                         "http://zhuti.xiaomi.com/detail/f02025cb-8f0e-44e0-b39a-653e46d84d42 \n" +
                                         "的主题 Token 即为 \n" +
-                                        "f02025cb-8f0e-44e0-b39a-653e46d84d42")
+                                        "f02025cb-8f0e-44e0-b39a-653e46d84d42 \n")
                                 .setPositiveButton("OK", null)
                                 .show())
                 .show());
