@@ -24,6 +24,12 @@ import okhttp3.ResponseBody;
 class ThemeUtils {
     private static final String THEME_API_URL = "https://thm.market.xiaomi.com/thm/download/v2/";
 
+    /**
+     * Apply a theme by send intent to system theme manager with theme file path,
+     * and also set applied flag to true.
+     *
+     * @param filePath mtz theme file absolute path.
+     */
     static void applyTheme(Activity activity, String filePath) {
         Intent intent = new Intent("android.intent.action.MAIN");
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -39,8 +45,16 @@ class ThemeUtils {
         MainActivity.applied = true;
     }
 
-    static void getThemeDownloadLinkAsync(Activity activity, String themeLink, Callback callback) {
-        String[] themeLinkSplit = themeLink.split("/detail/.*?");
+    /**
+     * Make a async get call to get theme info,
+     * if theme share link does not match,
+     * it will be show a dialog and return.
+     *
+     * @param themeShareLink MIUI theme share link.
+     * @param callback       operation when after get HTTP request.
+     */
+    static void getThemeDownloadLinkAsync(Activity activity, String themeShareLink, Callback callback) {
+        String[] themeLinkSplit = themeShareLink.split("/detail/.*?");
         if (themeLinkSplit.length != 2) {
             new MaterialAlertDialogBuilder(activity)
                     .setTitle("错误")
@@ -61,11 +75,18 @@ class ThemeUtils {
         call.enqueue(callback);
     }
 
+    /**
+     * Parse MIUI theme API response, generate a theme info Set.
+     *
+     * @param responseBody HTTP response result.
+     * @return theme info Set(downloadUrl, fileHash, fileSize, fileName).
+     */
     static Map<String, String> getThemeInfo(ResponseBody responseBody) {
         try {
             JsonObject jsonObject = new Gson().fromJson(responseBody.string(), JsonObject.class);
             int apiCode = jsonObject.get("apiCode").getAsInt();
 
+            // 0 is OK, -1 is error.
             if (apiCode == 0) {
                 JsonObject apiDataJsonObject = jsonObject.getAsJsonObject("apiData");
 

@@ -33,8 +33,11 @@ public class MainActivity extends AppCompatActivity {
     private static final String ICEBOX_COOLAPK_URL = "https://coolapk.com/apk/com.catchingnow.icebox";
 
     static boolean applied = false;
-    private static String filePath;
+    private static String filePath = null;
 
+    /**
+     * After apply theme, make a dialog.
+     */
     @Override
     protected void onResume() {
         super.onResume();
@@ -52,29 +55,38 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * After user choose file, check the file and set filePath.
+     *
+     * @param requestCode is always 7.
+     * @param data        contains user chosen file Uri.
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == 7 && resultCode == Activity.RESULT_OK && data != null) {
             Uri fileUri = data.getData();
-            Cursor cursor = getContentResolver().query(fileUri, null, null, null);
 
-            if (cursor != null && cursor.moveToFirst()) {
-                String fileName = cursor.getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME));
-                if (!fileName.endsWith(".mtz")) {
-                    Snackbar.make(findViewById(R.id.bt_chooseFile).getRootView(), R.string.not_mtz_file, Snackbar.LENGTH_LONG)
-                            .show();
-                    fileName = null;
-                } else {
-                    Snackbar.make(findViewById(R.id.bt_chooseFile).getRootView(), R.string.ensure_mtz, Snackbar.LENGTH_LONG)
-                            .show();
-                }
+            // try-with-source
+            try (Cursor cursor = getContentResolver().query(fileUri, null, null, null)) {
+                if (cursor != null && cursor.moveToFirst()) {
+                    String fileName = cursor.getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME));
+                    if (!fileName.endsWith(".mtz")) {
+                        Snackbar.make(findViewById(R.id.bt_chooseFile).getRootView(), R.string.not_mtz_file, Snackbar.LENGTH_LONG)
+                                .show();
+                        fileName = null;
+                    } else {
+                        Snackbar.make(findViewById(R.id.bt_chooseFile).getRootView(), R.string.ensure_mtz, Snackbar.LENGTH_LONG)
+                                .show();
+                    }
 
-                if (fileName == null) {
-                    filePath = null;
-                } else {
-                    filePath = Environment.getExternalStorageDirectory().getPath() + "/" + fileName;
+                    if (fileName == null) {
+                        filePath = null;
+                    } else {
+                        // MIUI theme manager needs absolute path.
+                        filePath = Environment.getExternalStorageDirectory().getPath() + "/" + fileName;
+                    }
                 }
             }
         }
@@ -85,6 +97,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // Open system file manager app.
         Button openFileManagerButton = findViewById(R.id.bt_openFileManager);
         openFileManagerButton.setOnClickListener(v -> {
             Intent intent = new Intent("android.intent.action.MAIN");
@@ -92,9 +105,11 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
+        // Choose a file and return to onActivityResult.
         Button chooseFileButton = findViewById(R.id.bt_chooseFile);
         chooseFileButton.setOnClickListener(v -> FileUtils.chooseFile(this));
 
+        // Apply theme, should call after choose file.
         Button applyThemeButton = findViewById(R.id.bt_applyTheme);
         applyThemeButton.setOnClickListener(v -> {
             if (filePath == null) {
@@ -108,6 +123,7 @@ public class MainActivity extends AppCompatActivity {
 
         TextInputLayout themeShareLinkTextInputLayout = findViewById(R.id.til_themeShareLink);
 
+        // Get theme share link and get theme info to show.
         Button getThemeDownloadLinkButton = findViewById(R.id.bt_getThemeDownloadLink);
         getThemeDownloadLinkButton.setOnClickListener(v -> {
             String inputShareLink = themeShareLinkTextInputLayout.getEditText().getText().toString();
@@ -128,6 +144,7 @@ public class MainActivity extends AppCompatActivity {
                         ResponseBody body = response.body();
                         Map<String, String> themeInfo = ThemeUtils.getThemeInfo(body);
 
+                        // Cannot get theme info, maybe link is wrong.
                         if (themeInfo == null) {
                             runOnUiThread(() -> new MaterialAlertDialogBuilder(MainActivity.this)
                                     .setTitle("失败")
@@ -136,35 +153,36 @@ public class MainActivity extends AppCompatActivity {
                                     .setNegativeButton("OK", null)
                                     .show());
                         } else {
-                            runOnUiThread(() -> {
-                                        String downloadUrl = themeInfo.get("downloadUrl");
-                                        String fileName = themeInfo.get("fileName");
+                            String downloadUrl = themeInfo.get("downloadUrl");
+                            String fileName = themeInfo.get("fileName");
 
-                                        new MaterialAlertDialogBuilder(MainActivity.this)
-                                                .setTitle(fileName)
+                            // Show theme info, set copy and download button.
+                            runOnUiThread(() -> new MaterialAlertDialogBuilder(MainActivity.this)
+                                    .setTitle(fileName)
                                                 .setMessage("文件大小：" + themeInfo.get("fileSize") + "\n\n" +
                                                         "下载链接：\n" + downloadUrl + "\n\n" +
                                                         "哈希值：\n" + themeInfo.get("fileHash") + "\n")
                                                 .setNegativeButton("复制链接", (dialog, which) -> FileUtils.copyLink(MainActivity.this, downloadUrl))
                                                 .setPositiveButton("直接下载", (dialog, which) -> FileUtils.systemDownload(MainActivity.this, themeInfo))
-                                                .show();
-                                    }
-                            );
+                                    .show());
                         }
                     }
                 });
             }
         });
 
+        // Go to IceBox Coolapk download page.
         Button iceBoxCoolapkButton = findViewById(R.id.bt_iceboxCoolapk);
         iceBoxCoolapkButton.setOnClickListener(v -> {
             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(ICEBOX_COOLAPK_URL));
             startActivity(intent);
         });
 
+        // Default example path.
         TextInputLayout themeFilePathTextInputLayout = findViewById(R.id.til_path);
         themeFilePathTextInputLayout.getEditText().setText("/sdcard/test.mtz");
 
+        // Get user input path and apply theme.
         Button advApplyThemeButton = findViewById(R.id.bt_advAppleTheme);
         advApplyThemeButton.setOnClickListener(v -> {
             String input = themeFilePathTextInputLayout.getEditText().getText().toString();
@@ -177,12 +195,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        // Go to GitHub open source page.
         Button githubButton = findViewById(R.id.bt_github);
         githubButton.setOnClickListener(v -> {
             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(GITHUB_URL));
             startActivity(intent);
         });
 
+        // Show how this app works.
         Button howItWorkButton = findViewById(R.id.bt_howItWork);
         howItWorkButton.setOnClickListener(v ->
                 new MaterialAlertDialogBuilder(this)
@@ -196,6 +216,7 @@ public class MainActivity extends AppCompatActivity {
                         .show()
         );
 
+        // Go to my page in Coolapk.
         Button meCoolapkButton = findViewById(R.id.bt_meCoolapk);
         meCoolapkButton.setOnClickListener(v -> {
             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(ME_COOLAPK_URL));
