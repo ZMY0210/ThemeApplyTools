@@ -24,16 +24,16 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/bt_chooseFile"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginEnd="3dp"
             android:layout_weight="1"
             android:text="@string/choose_file" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/bt_applyTheme"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginStart="3dp"
             android:layout_weight="1"
             android:text="@string/apply_theme" />
