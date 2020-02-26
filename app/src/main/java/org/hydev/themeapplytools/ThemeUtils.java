@@ -10,6 +10,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
 import java.io.IOException;
+import java.net.URLDecoder;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
@@ -68,14 +69,18 @@ class ThemeUtils {
             if (apiCode == 0) {
                 JsonObject apiDataJsonObject = jsonObject.getAsJsonObject("apiData");
 
-                String downloadUrl = apiDataJsonObject.get("downloadUrl").getAsString();
-                String fileHash = apiDataJsonObject.get("fileHash").getAsString();
-                int fileSize = apiDataJsonObject.get("fileSize").getAsInt();
+                String downloadUrl = URLDecoder.decode(apiDataJsonObject.get("downloadUrl").getAsString(), "UTF-8");
+                String fileHash = apiDataJsonObject.get("fileHash").getAsString().toUpperCase();
+                String fileSize = String.format(Locale.CHINESE, "%.2f", apiDataJsonObject.get("fileSize").getAsInt() / 10e5) + " MB";
+
+                String[] downloadUrlSpilt = downloadUrl.split("/");
+                String fileName = URLDecoder.decode(downloadUrlSpilt[downloadUrlSpilt.length - 1], "UTF-8");
 
                 Map<String, String> themeInfo = new HashMap<>();
                 themeInfo.put("downloadUrl", downloadUrl);
                 themeInfo.put("fileHash", fileHash);
-                themeInfo.put("fileSize", String.format(Locale.CHINESE, "%.2f", fileSize / 10e5) + " MB");
+                themeInfo.put("fileSize", fileSize);
+                themeInfo.put("fileName", fileName);
 
                 return themeInfo;
             } else {

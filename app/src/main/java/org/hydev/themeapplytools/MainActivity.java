@@ -138,14 +138,15 @@ public class MainActivity extends AppCompatActivity {
                         } else {
                             runOnUiThread(() -> {
                                         String downloadUrl = themeInfo.get("downloadUrl");
+                                        String fileName = themeInfo.get("fileName");
 
                                         new MaterialAlertDialogBuilder(MainActivity.this)
-                                                .setTitle("成功")
+                                                .setTitle(fileName)
                                                 .setMessage("文件大小：" + themeInfo.get("fileSize") + "\n\n" +
                                                         "下载链接：\n" + downloadUrl + "\n\n" +
-                                                        "哈希值：\n" + themeInfo.get("fileHash"))
+                                                        "哈希值：\n" + themeInfo.get("fileHash") + "\n")
                                                 .setNegativeButton("复制链接", (dialog, which) -> FileUtils.copyLink(MainActivity.this, downloadUrl))
-                                                .setPositiveButton("直接下载", (dialog, which) -> FileUtils.systemDownload(MainActivity.this, downloadUrl))
+                                                .setPositiveButton("直接下载", (dialog, which) -> FileUtils.systemDownload(MainActivity.this, themeInfo))
                                                 .show();
                                     }
                             );

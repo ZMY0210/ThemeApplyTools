@@ -10,8 +10,7 @@ import android.net.Uri;
 import android.os.Environment;
 import android.widget.Toast;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
+import java.util.Map;
 
 class FileUtils {
     static void copyLink(Activity activity, String link) {
@@ -22,23 +21,18 @@ class FileUtils {
         Toast.makeText(activity, "已复制到剪切版", Toast.LENGTH_LONG).show();
     }
 
-    static void systemDownload(Activity activity, String url) {
-        DownloadManager downloadManager = (DownloadManager) activity.getSystemService(Context.DOWNLOAD_SERVICE);
-        DownloadManager.Request request = new DownloadManager.Request(Uri.parse(url));
-        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
-        Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).mkdir();
+    static void systemDownload(Activity activity, Map<String, String> themeInfo) {
+        String downloadUrl = themeInfo.get("downloadUrl");
+        String fileName = themeInfo.get("fileName");
 
-        try {
-            String[] urlSplit = url.split("/");
-            String fileName = URLDecoder.decode(urlSplit[urlSplit.length - 1], "UTF-8");
-            request.setDestinationInExternalPublicDir("Download", fileName);
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-            throw new AssertionError();
-        }
+        DownloadManager downloadManager = (DownloadManager) activity.getSystemService(Context.DOWNLOAD_SERVICE);
+        DownloadManager.Request request = new DownloadManager.Request(Uri.parse(downloadUrl));
+        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+
+        Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).mkdir();
+        request.setDestinationInExternalPublicDir("Download", fileName);
 
         downloadManager.enqueue(request);
-
         Toast.makeText(activity, "已开始下载", Toast.LENGTH_LONG).show();
     }
 
