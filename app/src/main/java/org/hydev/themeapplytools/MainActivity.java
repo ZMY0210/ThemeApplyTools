@@ -22,6 +22,8 @@ import org.jetbrains.annotations.NotNull;
 import java.io.IOException;
 import java.util.Map;
 
+import eu.darken.rxshell.cmd.Cmd;
+import eu.darken.rxshell.cmd.RxCmdShell;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
@@ -96,6 +98,21 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // Get system MIUI version.
+        Cmd.Result result = Cmd.builder("getprop ro.miui.ui.version.name").execute(RxCmdShell.builder().build());
+        String MIUIVersion = result.getOutput().get(0);
+        if (MIUIVersion.isEmpty()) {
+            new MaterialAlertDialogBuilder(this)
+                    .setTitle("警告")
+                    .setCancelable(false)
+                    .setMessage("你似乎不是 MIUI 系统 \n" +
+                            "本 app 只在 MIUI 11 上测试过 \n" +
+                            "你确定要继续使用吗？")
+                    .setNegativeButton("退出", (dialog, which) -> finish())
+                    .setPositiveButton("继续", null)
+                    .show();
+        }
 
         // Open system file manager app.
         Button openFileManagerButton = findViewById(R.id.bt_openFileManager);
