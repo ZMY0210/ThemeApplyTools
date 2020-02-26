@@ -204,17 +204,28 @@ public class MainActivity extends AppCompatActivity {
 
         // Show how this app works.
         Button howItWorkButton = findViewById(R.id.bt_howItWork);
-        howItWorkButton.setOnClickListener(v ->
-                new MaterialAlertDialogBuilder(this)
-                        .setTitle("原理")
+        howItWorkButton.setOnClickListener(v -> new MaterialAlertDialogBuilder(this)
+                .setTitle("[原理] 应用主题")
                         .setMessage("向 MIUI 主题商店发送 Intent 请求 \n" +
                                 "在请求中指定特定的参数 \n" +
                                 "\"theme_file_path\" -> 对应主题路径 \n" +
                                 "\"api_called_from\" -> \"test\" \n" +
-                                "之后发送请求即可")
-                        .setPositiveButton("OK", null)
-                        .show()
-        );
+                                "之后发送请求即可 \n\n" +
+                                "由于是测试接口，\n" +
+                                "所以有可能会恢复默认，请见谅")
+                .setPositiveButton("OK", (dialog, which) ->
+                        new MaterialAlertDialogBuilder(this)
+                                .setTitle("[原理] 获取直链")
+                                .setMessage("向 MIUI api 发送 get 请求 \n" +
+                                        "在其中包含主题 Token \n" +
+                                        "返回的 Json 中有下载链接 \n\n" +
+                                        "例如：\n" +
+                                        "http://zhuti.xiaomi.com/detail/f02025cb-8f0e-44e0-b39a-653e46d84d42 \n" +
+                                        "的主题 Token 即为 \n" +
+                                        "f02025cb-8f0e-44e0-b39a-653e46d84d42")
+                                .setPositiveButton("OK", null)
+                                .show())
+                .show());
 
         // Go to my page in Coolapk.
         Button meCoolapkButton = findViewById(R.id.bt_meCoolapk);
