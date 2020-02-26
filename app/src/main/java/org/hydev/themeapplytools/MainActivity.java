@@ -75,11 +75,11 @@ public class MainActivity extends AppCompatActivity {
                 if (cursor != null && cursor.moveToFirst()) {
                     String fileName = cursor.getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME));
                     if (!fileName.endsWith(".mtz")) {
-                        Snackbar.make(findViewById(R.id.bt_chooseFile).getRootView(), R.string.not_mtz_file, Snackbar.LENGTH_LONG)
+                        Snackbar.make(findViewById(R.id.rootView), R.string.not_mtz_file, Snackbar.LENGTH_LONG)
                                 .show();
                         fileName = null;
                     } else {
-                        Snackbar.make(findViewById(R.id.bt_chooseFile).getRootView(), R.string.ensure_mtz, Snackbar.LENGTH_LONG)
+                        Snackbar.make(findViewById(R.id.rootView), R.string.ensure_mtz, Snackbar.LENGTH_LONG)
                                 .show();
                     }
 
