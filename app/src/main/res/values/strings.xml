@@ -10,6 +10,13 @@
     <string name="getThemeDownloadLink">主题下载直链获取</string>
     <string name="themeShareLink">MIUI 主题分享链接</string>
     <string name="bt_getThemeDownloadLink">获取信息 / 下载文件</string>
+    <string name="themeWebsite">主题资源分享</string>
+    <string name="warning_vpn">警告：大部分站点需要爬墙</string>
+    <string name="officialThemeStore">小米主题商店</string>
+    <string name="miuithemes_tk">MIUIThemes.TK</string>
+    <string name="techruchi_com">techruchi.com</string>
+    <string name="miui_themes_xiaomis">MIUI Themes Xiaomis</string>
+    <string name="miui_themez">Miui Themez</string>
     <string name="ifDefault">若出现主题恢复默认的情况，\n可先卸载 “主题商店” 的更新，\n再先按上方的步骤重新应用主题，\n并使用 “冰箱” 一类的 app 冻结 “主题商店”</string>
     <string name="iceboxCoolapk">酷安 “冰箱” app</string>
     <string name="adv_usage">你也可以在下方手动输入主题文件的位置.（手动应用）</string>

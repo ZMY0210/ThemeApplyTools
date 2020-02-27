@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.OpenableColumns;
+import android.view.View;
 import android.widget.Button;
 
 import androidx.annotation.Nullable;
@@ -188,12 +189,23 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        // Theme share website.
+        Button themeShareButton = findViewById(R.id.bt_themeShare);
+        themeShareButton.setOnClickListener(v -> {
+            View view = getLayoutInflater().inflate(R.layout.dialog_theme_share, null);
+            MaterialAlertDialogBuilder materialAlertDialogBuilder = new MaterialAlertDialogBuilder(this);
+            materialAlertDialogBuilder.setView(view);
+
+            ThemeShareDialogUtils.init(this, view);
+
+            materialAlertDialogBuilder.setTitle("第三方主题资源分享站");
+            materialAlertDialogBuilder.setPositiveButton("OK", null);
+            materialAlertDialogBuilder.show();
+        });
+
         // Go to IceBox Coolapk download page.
         Button iceBoxCoolapkButton = findViewById(R.id.bt_iceboxCoolapk);
-        iceBoxCoolapkButton.setOnClickListener(v -> {
-            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(ICEBOX_COOLAPK_URL));
-            startActivity(intent);
-        });
+        iceBoxCoolapkButton.setOnClickListener(v -> ThemeShareDialogUtils.openBrowser(this, ICEBOX_COOLAPK_URL));
 
         // Default example path.
         TextInputLayout themeFilePathTextInputLayout = findViewById(R.id.til_path);
@@ -214,10 +226,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Go to GitHub open source page.
         Button githubButton = findViewById(R.id.bt_github);
-        githubButton.setOnClickListener(v -> {
-            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(GITHUB_URL));
-            startActivity(intent);
-        });
+        githubButton.setOnClickListener(v -> ThemeShareDialogUtils.openBrowser(this, GITHUB_URL));
 
         // Show how this app works.
         Button howItWorkButton = findViewById(R.id.bt_howItWork);
@@ -246,9 +255,6 @@ public class MainActivity extends AppCompatActivity {
 
         // Go to my page in Coolapk.
         Button meCoolapkButton = findViewById(R.id.bt_meCoolapk);
-        meCoolapkButton.setOnClickListener(v -> {
-            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(ME_COOLAPK_URL));
-            startActivity(intent);
-        });
+        meCoolapkButton.setOnClickListener(v -> ThemeShareDialogUtils.openBrowser(this, ME_COOLAPK_URL));
     }
 }
