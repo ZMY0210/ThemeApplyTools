@@ -3,7 +3,12 @@ package org.hydev.themeapplytools;
 import android.app.Activity;
 import android.content.ComponentName;
 import android.content.Intent;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.Settings;
+import android.widget.Toast;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.gson.Gson;
@@ -31,6 +36,44 @@ class ThemeUtils {
      * @param filePath mtz theme file absolute path.
      */
     static void applyTheme(Activity activity, String filePath) {
+        ApplicationInfo applicationInfo;
+
+        try {
+            // If theme manager not exist.
+            applicationInfo = activity.getPackageManager().getApplicationInfo("com.android.thememanager", 0);
+        } catch (PackageManager.NameNotFoundException e) {
+            new MaterialAlertDialogBuilder(activity)
+                    .setTitle("错误")
+                    .setMessage("没有找到 MIUI 主题商店 \n" +
+                            "您可能不是 MIUI 系统 \n" +
+                            "或 MIUI 主题商店被卸载 \n" +
+                            "非 MIUI 系统无法使用本 app \n")
+                    .setNegativeButton("退出", (dialog, which) -> activity.finish())
+                    .show();
+
+            return;
+        }
+
+        // If theme manager not enable.
+        if (!applicationInfo.enabled) {
+            new MaterialAlertDialogBuilder(activity)
+                    .setTitle("警告")
+                    .setMessage("MIUI 主题商店被禁用 \n" +
+                            "请启用 MIUI 主题商店 \n" +
+                            "以便继续应用主题 \n")
+                    .setNegativeButton("返回", null)
+                    .setPositiveButton("启用", (dialog, which) -> {
+                        Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                        intent.setData(Uri.parse("package:com.android.thememanager"));
+                        activity.startActivity(intent);
+
+                        Toast.makeText(activity, "请点击下方的 “启用”", Toast.LENGTH_LONG).show();
+                    })
+                    .show();
+
+            return;
+        }
+
         Intent intent = new Intent("android.intent.action.MAIN");
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.setComponent(new ComponentName("com.android.thememanager", "com.android.thememanager.ApplyThemeForScreenshot"));

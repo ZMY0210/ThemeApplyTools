@@ -3,6 +3,8 @@ package org.hydev.themeapplytools;
 import android.app.Activity;
 import android.content.ComponentName;
 import android.content.Intent;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -118,6 +120,35 @@ public class MainActivity extends AppCompatActivity {
         // Open system file manager app.
         Button openFileManagerButton = findViewById(R.id.bt_openFileManager);
         openFileManagerButton.setOnClickListener(v -> {
+            ApplicationInfo applicationInfo;
+
+            try {
+                // Check if file manager is exist.
+                applicationInfo = getPackageManager().getApplicationInfo("com.android.fileexplorer", 0);
+            } catch (PackageManager.NameNotFoundException e) {
+                new MaterialAlertDialogBuilder(this)
+                        .setTitle("错误")
+                        .setMessage("没有找到 MIUI 文件管理器 \n" +
+                                "您可能需要手动进行步骤 [1.] \n" +
+                                "请确保你在使用 MIUI 系统 \n")
+                        .setNegativeButton("返回", null)
+                        .show();
+
+                return;
+            }
+
+            // Check if file manager is enable.
+            if (!applicationInfo.enabled) {
+                new MaterialAlertDialogBuilder(this)
+                        .setTitle("警告")
+                        .setMessage("MIUI 文件管理器被冻结（禁用） \n" +
+                                "您需要手动进行步骤 [1.] 以继续 \n")
+                        .setNegativeButton("OK", null)
+                        .show();
+
+                return;
+            }
+
             Intent intent = new Intent("android.intent.action.MAIN");
             intent.setComponent(new ComponentName("com.android.fileexplorer", "com.android.fileexplorer.activity.FileActivity"));
             startActivity(intent);
