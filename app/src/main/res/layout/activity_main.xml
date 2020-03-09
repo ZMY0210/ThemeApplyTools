@@ -46,13 +46,15 @@
         <com.google.android.material.textview.MaterialTextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/getThemeDownloadLink" />
+            android:text="@string/getThemeDownloadLink"
+            android:visibility="gone" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/til_themeShareLink"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/themeShareLink">
+            android:hint="@string/themeShareLink"
+            android:visibility="gone">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
@@ -73,7 +75,8 @@
                 android:layout_height="match_parent"
                 android:layout_marginEnd="3dp"
                 android:layout_weight="1"
-                android:text="@string/bt_getThemeDownloadLink" />
+                android:text="@string/bt_getThemeDownloadLink"
+                android:visibility="gone" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/bt_themeShare"
