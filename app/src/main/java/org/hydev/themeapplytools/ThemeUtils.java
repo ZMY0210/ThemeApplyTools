@@ -112,7 +112,7 @@ class ThemeUtils {
         String themeToken = themeLinkSplit[themeLinkSplit.length - 1];
 
         OkHttpClient okHttpClient = new OkHttpClient();
-        Request request = new Request.Builder().url(THEME_API_URL + themeToken).build();
+        Request request = new Request.Builder().url(THEME_API_URL + themeToken + "?miuiUIVersion=V11").build();
 
         Call call = okHttpClient.newCall(request);
         call.enqueue(callback);
